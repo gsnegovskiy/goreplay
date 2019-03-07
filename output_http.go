@@ -5,7 +5,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/buger/goreplay/proto"
+	"github.com/gsnegovskiy/goreplay/proto"
 )
 
 const initialDynamicWorkers = 10

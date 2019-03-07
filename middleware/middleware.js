@@ -3,8 +3,8 @@
 //
 // For questions use GitHub or support@goreplay.org
 //
-// GoReplay: https://github.com/buger/goreplay
-// Middleware package: https://github.com/buger/goreplay/middleware
+// GoReplay: https://github.com/gsnegovskiy/goreplay
+// Middleware package: https://github.com/gsnegovskiy/goreplay/middleware
 
 var middleware;
 
@@ -108,7 +108,7 @@ function parseMessage(msg) {
 
 // Used to compare values from original and replayed responses
 // Accepts request id, regexp pattern for searching the compared value (should include capture group), and callback which returns both original and replayed matched value.
-// Example: 
+// Example:
 //
 //   // Compare HTTP headers for response and replayed response, and map values
 //   let tokMap = {};
@@ -116,7 +116,7 @@ function parseMessage(msg) {
 //   gor.on("request", function(req) {
 //     let tok = gor.httpHeader(req.http, "Auth-Token");
 //     if (tok && tokMap[tok]) {
-//       req.http = gor.setHttpHeader(req.http, "Auth-Token", tokMap[tok]) 
+//       req.http = gor.setHttpHeader(req.http, "Auth-Token", tokMap[tok])
 //     }
 //
 //     gor.searchResponses(req.ID, "X-Set-Token: (\w+)$", function(respTok, replTok) {
@@ -162,9 +162,9 @@ function searchResponses(id, searchPattern, callback) {
                 callback(respMatch[1]);
                 return repl;
             }
-        
+
             callback(respMatch[1], replMatch[1]);
-            
+
             return repl;
         })
 
@@ -213,7 +213,7 @@ function setHttpPathParam(payload, name, value) {
     let path = httpPath(payload);
     let re = new RegExp(name + "=([^&$]+)");
     let newPath = path.replace(re, name + "=" + encodeURI(value));
-    
+
     // If we should add new param instead
     if (newPath == path) {
         if (newPath.indexOf("?") == -1) {
@@ -326,7 +326,7 @@ function setHttpBodyParam(payload, name, value) {
         }
         newBody += name + "=" + value;
     }
-    
+
     return setHttpBody(payload, Buffer.from(newBody));
 }
 

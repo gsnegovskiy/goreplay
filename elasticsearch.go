@@ -2,7 +2,7 @@ package main
 
 import (
 	"encoding/json"
-	"github.com/buger/goreplay/proto"
+	"github.com/gsnegovskiy/goreplay/proto"
 	"github.com/mattbaird/elastigo/lib"
 	"log"
 	"regexp"

@@ -1,6 +1,6 @@
 # GoReplay middleware
 
-GoReplay support protocol for writing middleware in any language, which allows you to implement custom logic like authentification or complex rewriting and filterting. See protocol description here: https://github.com/buger/goreplay/wiki/Middleware, but the basic idea that middleware process receive hex encoded data via STDIN and emits it back via STDOUT. STDERR for loggin inside middleware. Yes, that's simple.
+GoReplay support protocol for writing middleware in any language, which allows you to implement custom logic like authentification or complex rewriting and filterting. See protocol description here: https://github.com/gsnegovskiy/goreplay/wiki/Middleware, but the basic idea that middleware process receive hex encoded data via STDIN and emits it back via STDOUT. STDERR for loggin inside middleware. Yes, that's simple.
 
 To simplify middleware creation we provide packages for NodeJS and Go (upcoming).
 
@@ -73,7 +73,7 @@ This middleware include `searchResponses` helper used to compare values from ori
 
 `searchResponses` accepts request id, regexp pattern for searching the compared value (should include capture group), and callback which returns both original and replayed matched value.
 
-Example: 
+Example:
 ```javascript
    // Compare HTTP headers for response and replayed response, and map values
 let tokMap = {};
@@ -81,9 +81,9 @@ let tokMap = {};
 gor.on("request", function(req) {
     let tok = gor.httpHeader(req.http, "Auth-Token");
     if (tok && tokMap[tok]) {
-        req.http = gor.setHttpHeader(req.http, "Auth-Token", tokMap[tok]) 
+        req.http = gor.setHttpHeader(req.http, "Auth-Token", tokMap[tok])
     }
-    
+
     gor.searchResponses(req.ID, "X-Set-Token: (\w+)$", function(respTok, replTok) {
         if (respTok && replTok) tokMap[respTok] = replTok;
     })
@@ -98,10 +98,10 @@ gor.on("request", function(req) {
 Package expose following functions to process raw HTTP payloads:
 * `init` - initialize middleware object, start reading from STDIN.
 * `httpPath` - URL path of the request: `gor.httpPath(req.http)`
-* `httpMethod` - Http method: 'GET', 'POST', etc. `gor.httpMethod(req.http)`. 
+* `httpMethod` - Http method: 'GET', 'POST', etc. `gor.httpMethod(req.http)`.
 * `setHttpPath` - update URL path: `req.http = gor.setHttpPath(req.http, newPath)`
 * `httpPathParam` - get param from URL path: `gor.httpPathParam(req.http, queryParam)`
-* `setHttpPathParam` - set URL param: `req.http = gor.setHttpPathParam(req.http, queryParam, value)` 
+* `setHttpPathParam` - set URL param: `req.http = gor.setHttpPathParam(req.http, queryParam, value)`
 * `httpStatus` - response status code
 * `httpHeader` - get HTTP header: `gor.httpHeader(req.http, "Content-Length")`
 * `setHttpHeader` - Set HTTP header, returns modified payload: `req.http = gor.setHttpHeader(req.http, "X-Replayed", "1")`

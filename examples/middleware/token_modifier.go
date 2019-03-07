@@ -24,7 +24,7 @@ import (
 	"bytes"
 	"encoding/hex"
 	"fmt"
-	"github.com/buger/goreplay/proto"
+	"github.com/gsnegovskiy/goreplay/proto"
 	"os"
 )
 
